@@ -17,5 +17,9 @@
     "start": "node app.js"
   },
   "author": "Mark Smith",
-  "license": ""
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mjgs/routes-builder-demo-project.git"
+  }
 }
