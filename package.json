@@ -11,7 +11,9 @@
     "morgan": "~1.3.0",
     "routes-builder": "~0.0.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "mocha": "^2.2.5"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js"
