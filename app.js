@@ -5,7 +5,7 @@ var path = require('path');
 var logger = require('morgan');
 var ejs_locals = require('ejs-locals');
 
-var app = routes_builder(express());
+var app = module.exports = routes_builder(express());
 
 app.use(logger('dev'));
 app.set('port', process.env.PORT || 3000);
