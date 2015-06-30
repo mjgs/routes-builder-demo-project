@@ -1,7 +1,7 @@
 {
   "name": "routes-builder-demo-project",
   "version": "0.0.1",
-  "description": "Demo project that uses the route-builder module to create routes",
+  "description": "Demo project that uses the routes-builder module to create routes",
   "dependencies": {
     "async": "^1.2.1",
     "body-parser": "~1.8.1",
