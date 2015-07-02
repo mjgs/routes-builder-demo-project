@@ -41,7 +41,7 @@ describe('lib/DirectoryLoader', function() {
   });
   describe('#loadFile()', function() {
     it('should load a routes definition file', function() {
-      var loader = new DirectoryLoader()
+      var loader = new DirectoryLoader();
       loader.setDirectory(directory);
       loader.loadFile(filename, function(err, route_definition) {
         assert.equal(err, null, 'no error is returned');
@@ -49,16 +49,41 @@ describe('lib/DirectoryLoader', function() {
         assert.equal(route_definition.routes[0][1], '/', 'routes definition is for / route');
       });
     });
-    it('should error when directory is not set', function() {
+    it('should call the callback with an error when readdir returns an error', function() {
       readdirMock.read = function(dir, glob, options, cb) {
         return cb(new Error(), null);
       };
       var callback = sinon.spy();
-
-      var loader = new DirectoryLoader()
-      loader.setDirectory(directory);
+      var loader = new DirectoryLoader();
       try {
         loader.loadFile('', callback);
+      } catch (err) {
+        assert.equal(err, new Error(), 'error was thrown');
+        assert.equal(callback.calledOnce, true, 'callback was called once');
+        assert.equal(callback.calledWith(new Error()), true, 'callback was called with an error as argument');
+      }
+    });
+    it('should call the callback with an error when the require fails', function() {
+      readdirMock.read = function(dir, glob, options, cb) {
+        return cb(null, [ filename ]);
+      };
+      var callback = sinon.spy();
+      var loader = new DirectoryLoader();
+      loader.setDirectory('bogusdirectory');
+      try {
+        loader.loadFile(filename, callback);
+      } catch (err) {
+        assert.equal(err, new Error(), 'error was thrown');
+        assert.equal(callback.calledOnce, true, 'callback was called once');
+        assert.equal(callback.calledWith(new Error()), true, 'callback was called with an error as argument');
+      }
+    });
+    it('should call the callback with an error when directory is set to a non-string', function() {
+      var callback = sinon.spy();
+      var loader = new DirectoryLoader();
+      loader.setDirectory({});
+      try {
+        loader.loadFile(filename, callback);
       } catch (err) {
         assert.equal(err, new Error(), 'error was thrown');
         assert.equal(callback.calledOnce, true, 'callback was called once');
