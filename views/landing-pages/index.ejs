@@ -1,0 +1,7 @@
+<% layout('../layout') %>
+<h1>Landing Pages Index Page!</h1>
+<ul>
+  <% pages.forEach(function(page) { %>
+    <li><a href="/landing-pages/<%= page %>"><%= page %></a></li>
+  <% }); %>
+</ul>
